@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+    sonarnetwork:
+        driver: bridge
+
+services:
+
+    db:
+        networks:
+            - sonarnetwork
+        image: postgres:10-alpine
+        ports:
+            - "${DB_PORT}:5432"
+        environment:
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASS}
+        volumes:
+            - sonarqube_db:/var/lib/postgresql
+
+    client:
+        image: sonarqube:latest
+        ports:
+            - "${CLIENT_PORT}:9000"
+        networks:
+            - sonarnetwork
+        depends_on:
+            - db
+        environment:
+            - SONARQUBE_JDBC_URL=jdbc:postgresql://db:${DB_PORT}/sonar
+            - SONARQUBE_JDBC_USERNAME=${DB_USER}
+            - SONARQUBE_JDBC_PASSWORD=${DB_PASS}
+        volumes:
+            - sonarqube_conf:/opt/sonarqube/conf
+            - sonarqube_data:/opt/sonarqube/data
+            - sonarqube_extensions:/opt/sonarqube/extensions                
+
+volumes:
+    sonarqube_db:
+    sonarqube_conf:
+    sonarqube_data:
+    sonarqube_extensions:

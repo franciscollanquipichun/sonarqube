@@ -1,0 +1,7 @@
+# Sonarqube
+CLIENT_PORT=9000
+
+# Postgres
+DB_PORT=5432
+DB_USER=sonar
+DB_PASS=sonar
