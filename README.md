@@ -1,6 +1,6 @@
 # Sonarqube
 
-Sonarqube community with postgreSQL database on docker.
+Sonarqube community version with postgreSQL database in docker.
 
 ## Install
 
