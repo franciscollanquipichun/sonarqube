@@ -19,7 +19,7 @@ services:
             - sonarqube_db:/var/lib/postgresql
 
     client:
-        image: sonarqube:latest
+        image: hub4rpi64/sonarqube:8.3.1.34397
         ports:
             - "${CLIENT_PORT}:9000"
         networks:
